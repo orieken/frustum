@@ -1,0 +1,26 @@
+{
+  "name": "@frustum-dev/bar-chart",
+  "version": "0.0.1",
+  "description": "3D bar chart",
+  "main": "dist/bar-chart.umd.js",
+  "jsnext:main": "dist/bar-chart.esm.js",
+  "module": "dist/bar-chart.esm.js",
+  "unpkg": "dist/bar-chart.iife.js",
+  "jsdelivr": "dist/bar-chart.iife.js",
+  "browser": "dist/bar-chart.iife.js",
+  "typings": "dist/types/index.d.ts",
+  "repository": "https://github.com/workswithweb/frustum",
+  "author": "Sathya Vikram",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm-run-all clean && rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jest",
+    "pretest": "npm run build",
+    "clean": "rimraf dist/**"
+  },
+  "dependencies": {
+    "@frustum-dev/common": "^0.0.1",
+    "three": "^0.103.0"
+  }
+}

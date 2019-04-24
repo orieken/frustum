@@ -1,0 +1,20 @@
+{
+  "name": "@frustum-dev/common",
+  "version": "0.0.1",
+  "description": "frustum common",
+  "module": "dist/index.js",
+  "typings": "dist/types/index.d.ts",
+  "repository": "https://github.com/workswithweb/frustum",
+  "author": "Sathya Vikram",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm-run-all clean && rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jest",
+    "pretest": "npm run build",
+    "clean": "rimraf dist/**"
+  },
+  "dependencies": {
+    "three": "^0.103.0"
+  }
+}

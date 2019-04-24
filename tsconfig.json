@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "target": "ESNext",
+        "module": "ESNext",
+        "strict": true,
+        "sourceMap": true,
+        "declaration": true,
+        "allowSyntheticDefaultImports": true,
+        "removeComments": true,
+        "noUnusedLocals": true
+    },
+    "exclude": [
+        "**/*.spec.ts",
+        "**/__mocks__/*",
+        "**/dist/*"
+    ]
+}
