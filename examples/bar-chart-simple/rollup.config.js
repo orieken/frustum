@@ -1,6 +1,6 @@
 import defaultConfig from '../../rollup.config.js';
 
-const config = {
+export default {
 	...defaultConfig,
 	output: {
 		file: 'public/bundle.js',
@@ -8,10 +8,6 @@ const config = {
 		sourcemap: true
 	},
 	watch: {
-        include: '../../**',
-    }
+		include: '../../**',
+	}
 };
-
-export default [
-	config
-];

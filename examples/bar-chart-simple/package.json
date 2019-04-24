@@ -1,12 +1,13 @@
 {
   "name": "@frustum-dev/example-bar-chart-simple",
+  "version": "0.0.1",
+  "description": "Simple 3D bar chart",
   "scripts": {
     "build": "npm-run-all clean && rollup -c",
-    "watch": "rollup -c -w",
-    "test": "jest",
-    "clean": "rimraf dist/**",
+    "clean": "rimraf public/**.js**",
     "dev": "npm-run-all --parallel start watch",
-    "start": "live-server public"
+    "start": "live-server public",
+    "watch": "rollup -c -w"
   },
   "dependencies": {
     "@frustum-dev/bar-chart": "0.0.1"

@@ -1,14 +1,8 @@
 import defaultConfig from '../../rollup.config.js';
 import pkg from './package.json';
 
-const config = {
+export default {
 	...defaultConfig,
-	external: ['three'],
-	output: [
-		{ file: pkg.module, format: 'esm' }
-	]
+	external: Object.keys(pkg.dependencies),
+	output: { file: pkg.module, format: 'esm' }
 };
-
-export default [
-	config
-];
