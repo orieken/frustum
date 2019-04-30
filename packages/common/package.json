@@ -17,6 +17,7 @@
     "clean": "rimraf dist/**"
   },
   "dependencies": {
-    "three": "^0.103.0"
+    "three": "^0.103.0",
+    "@workswithweb/threejs-orbit-controls": "^0.0.3"
   }
 }
