@@ -12,12 +12,12 @@ class BarChartData {
 }
 
 interface BarChartMeta extends ChartData {
-    xAxisName?: string;
-    yAxisName?: string;
-    zAxisName?: string;
-    xScale?: number[] | { label: string, value: number }[];
-    yScale?: number[] | { label: string, value: number }[];
-    zScale?: number[] | { label: string, value: number }[];
+    xAxisName?: { label: string, color?: number | string };
+    yAxisName?: { label: string, color?: number | string };
+    zAxisName?: { label: string, color?: number | string };
+    xScale?: number[] | string[];
+    yScale?: number[] | string[];
+    zScale?: number[] | string[];
 }
 
 class Bar {

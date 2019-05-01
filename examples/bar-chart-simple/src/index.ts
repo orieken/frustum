@@ -4,9 +4,13 @@ const barChartData: BarChartData = {
     meta: {
         name: 'First 3D bar chart',
         description: 'this is new 3D bar chart',
-        xAxisName: 'Altitude',
-        yAxisName: 'Energy Generated',
-        zAxisName: 'Country'
+        xAxisName: { label: 'Altitude' },
+        xScale: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        yAxisName: { label: 'Energy Generated' },
+        yScale: [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000],
+        zAxisName: { label: 'Country' },
+        zScale: ['India', 'USA', 'China', 'Russia', 'Canada', 'Nepal', 'Singapore', 'Burma', 'Brazil', 'Africa']
+
     },
     data: [
         new BarBuilder().setX(0).setY(1).setZ(0).build(),

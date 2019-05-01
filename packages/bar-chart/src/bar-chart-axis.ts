@@ -1,6 +1,9 @@
 import { Vector3, LineBasicMaterial, Geometry, Line, Group, GridHelper } from 'three';
+import { textRenderer } from '@frustum-dev/common';
 import { GRID_SIZE } from './bar-chart';
 import { BarChartData } from './bar-chart-data.model';
+
+const AXIS_NAME_MARGIN = 10;
 
 export class BarChartAxis {
     private group = new Group();
@@ -13,13 +16,74 @@ export class BarChartAxis {
     draw() {
         this.drawGrid(this.chartData)
         this.drawZAxisLines();
-        this.drawXAxisName();
+        this.drawAxisNames();
+        this.drawScale();
         return this.group;
     }
 
-    private drawXAxisName() {
-        if (this.chartData.meta && this.chartData.meta.xAxisName && this.chartData.meta.xAxisName.length > 0) {
+    private drawAxisNames() {
+        this.drawXAxisName();
+        this.drawYAxisName();
+        this.drawZAxisName();
+    }
 
+    private drawScale() {
+        this.drawXScale();
+    }
+
+    private drawXScale() {
+        
+
+    }
+    private drawXAxisName() {
+        if (this.chartData.meta && this.chartData.meta.xAxisName && this.chartData.meta.xAxisName.label.length > 0) {
+            this.group.add(textRenderer.drawHelvetikerBoldFontText({
+                text: this.chartData.meta.xAxisName.label,
+                z: GRID_SIZE / 2 + AXIS_NAME_MARGIN,
+                xRotation: -Math.PI / 2,
+                color: this.chartData.meta.xAxisName.color
+            }));
+
+            this.group.add(textRenderer.drawHelvetikerBoldFontText({
+                text: this.chartData.meta.xAxisName.label,
+                z: -GRID_SIZE / 2 - AXIS_NAME_MARGIN,
+                yRotation: Math.PI,
+                xRotation: Math.PI / 2,
+                color: this.chartData.meta.xAxisName.color
+            }));
+        }
+    }
+
+    private drawYAxisName() {
+        if (this.chartData.meta && this.chartData.meta.yAxisName && this.chartData.meta.yAxisName.label.length > 0) {
+            this.group.add(textRenderer.drawHelvetikerBoldFontText({
+                text: this.chartData.meta.yAxisName.label,
+                x: -GRID_SIZE / 2 - AXIS_NAME_MARGIN,
+                y: GRID_SIZE / 2,
+                z: GRID_SIZE / 2 - AXIS_NAME_MARGIN,
+                yRotation: Math.PI / 2,
+                color: this.chartData.meta.yAxisName.color
+            }));
+        }
+    }
+
+    private drawZAxisName() {
+        if (this.chartData.meta && this.chartData.meta.zAxisName && this.chartData.meta.zAxisName.label.length > 0) {
+            this.group.add(textRenderer.drawHelvetikerBoldFontText({
+                text: this.chartData.meta.zAxisName.label,
+                x: GRID_SIZE / 2 + AXIS_NAME_MARGIN,
+                xRotation: -Math.PI / 2,
+                zRotation: Math.PI / 2,
+                color: this.chartData.meta.zAxisName.color
+            }));
+
+            this.group.add(textRenderer.drawHelvetikerBoldFontText({
+                text: this.chartData.meta.zAxisName.label,
+                x: -GRID_SIZE / 2 - AXIS_NAME_MARGIN,
+                xRotation: -Math.PI / 2,
+                zRotation: -Math.PI / 2,
+                color: this.chartData.meta.zAxisName.color
+            }));
         }
     }
 
@@ -31,20 +95,6 @@ export class BarChartAxis {
             new Vector3(-GRID_SIZE / 2, GRID_SIZE, GRID_SIZE / 2)
         ];
         this.group.add(new Line(corner1, material));
-
-        let corner2 = new Geometry();
-        corner2.vertices = [
-            new Vector3(-GRID_SIZE / 2, 0, -GRID_SIZE / 2),
-            new Vector3(-GRID_SIZE / 2, GRID_SIZE, -GRID_SIZE / 2)
-        ];
-        this.group.add(new Line(corner2, material));
-
-        let corner3 = new Geometry();
-        corner3.vertices = [
-            new Vector3(GRID_SIZE / 2, 0, -GRID_SIZE / 2),
-            new Vector3(GRID_SIZE / 2, GRID_SIZE, -GRID_SIZE / 2)
-        ];
-        this.group.add(new Line(corner3, material));
     }
 
     private drawGrid(chartData: BarChartData) {
