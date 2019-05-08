@@ -16,9 +16,9 @@ export class PerspectiveRenderer extends BaseRenderer {
         this.render(this.camera);
     }
 
-    setCameraPosition(position: Vector3, lookAt: Vector3 = new Vector3(0, 0, 0)) {
+    setCameraPosition(position: Vector3) {
         this.camera.position.set(position.x, position.y, position.z);
-        this.camera.lookAt(lookAt);
+        this.camera.lookAt(0, 0, 0);
     }
 
     private setCameraAspect() {
@@ -29,6 +29,6 @@ export class PerspectiveRenderer extends BaseRenderer {
     }
 
     enableOrbitControls() {
-        new OrbitControls(this.camera);
+        return new OrbitControls(this.camera);
     }
 }

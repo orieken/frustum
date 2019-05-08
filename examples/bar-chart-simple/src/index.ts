@@ -5,7 +5,7 @@ const barChartData: BarChartData = {
         name: 'First 3D bar chart',
         description: 'this is new 3D bar chart',
         xAxisName: { label: 'Altitude' },
-        xScale: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        xScale: [0, 1, 2, 3],
         yAxisName: { label: 'Energy Generated' },
         yScale: [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000],
         zAxisName: { label: 'Country' },

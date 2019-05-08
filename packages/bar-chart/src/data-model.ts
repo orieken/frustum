@@ -2,7 +2,7 @@ import { Color } from 'three';
 import { ChartData } from '@frustum-dev/common';
 
 class BarChartData {
-    meta?: BarChartMeta;
+    meta: BarChartMeta;
     data: Bar[];
 
     constructor(data: Bar[], meta: BarChartMeta) {
@@ -12,12 +12,22 @@ class BarChartData {
 }
 
 interface BarChartMeta extends ChartData {
-    xAxisName?: { label: string, color?: number | string };
-    yAxisName?: { label: string, color?: number | string };
-    zAxisName?: { label: string, color?: number | string };
-    xScale?: number[] | string[];
-    yScale?: number[] | string[];
-    zScale?: number[] | string[];
+    xAxisName?: AxisName;
+    yAxisName?: AxisName;
+    zAxisName?: AxisName;
+    xScale: number[] | string[] | Scale[];
+    yScale: number[] | string[] | Scale[];
+    zScale: number[] | string[] | Scale[];
+}
+
+interface Scale {
+    label: string;
+    value: number;
+}
+
+interface AxisName {
+    label: string;
+    color?: number | string;
 }
 
 class Bar {
@@ -93,4 +103,4 @@ class BarBuilder {
     }
 }
 
-export { BarBuilder, Bar, BarChartData };
+export { BarBuilder, Bar, BarChartData, AxisName, BarChartMeta };

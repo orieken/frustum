@@ -1,2 +1,2 @@
 export { BarChart } from './bar-chart';
-export { BarChartData, BarBuilder } from './bar-chart-data.model';
+export { BarChartData, BarBuilder } from './data-model';
