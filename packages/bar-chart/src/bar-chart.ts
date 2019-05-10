@@ -1,17 +1,16 @@
 import { Group, Vector3 } from 'three';
 import { PerspectiveRenderer } from '@frustum-dev/common';
 import { CameraSettings } from '@frustum-dev/common';
-import { BarChartData } from './data-model';
-import { BarChartAxis } from './draw-axis';
-
-export const GRID_SIZE = 100;
+import { BarChartModel } from './bar-chart-model';
+import { DrawBarChartAxis } from './draw-bar-chart-axis';
+import { GRID_SIZE } from './constants';
 
 export class BarChart {
     private renderer: PerspectiveRenderer;
     private group = new Group();
-    private chartData: BarChartData;
+    private chartData: BarChartModel;
 
-    constructor(selector: string, chartData: BarChartData) {
+    constructor(selector: string, chartData: BarChartModel) {
         this.chartData = chartData;
         const cameraSettings: CameraSettings = { fov: 50, near: 1, far: GRID_SIZE * 10 };
         this.renderer = new PerspectiveRenderer(selector, cameraSettings);
@@ -23,8 +22,7 @@ export class BarChart {
         this.renderer.setCameraPosition(new Vector3(GRID_SIZE, GRID_SIZE, GRID_SIZE));
         this.renderer.enableOrbitControls();
 
-        this.group.add(new BarChartAxis(this.chartData.meta).draw());
-
+        this.group.add(new DrawBarChartAxis(this.chartData.meta).draw());
         this.renderer.addToScene(this.group);
         this.render();
     }

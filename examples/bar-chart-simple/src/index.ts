@@ -1,25 +1,29 @@
-import { BarChart, BarChartData, BarBuilder } from '@frustum-dev/bar-chart';
+import { BarChart, BarChartModel } from '@frustum-dev/bar-chart';
 
-const barChartData: BarChartData = {
+const barChartData: BarChartModel = {
     meta: {
         name: 'First 3D bar chart',
         description: 'this is new 3D bar chart',
         xAxisName: {
             label: 'Altitude',
-            color: 'red'
-        },
-        xScale: [
-            { value: 0, color: 'red' },
-            { value: 1 },
-            { value: 2 },
-            { value: 3 }
-        ],
-        yAxisName: {
-            label: 'Energy Generated',
             color: 'blue'
         },
+        xScale: [
+            { value: 0 },
+            { value: 1 },
+            { value: 2 },
+            { value: 3 },
+            { value: 4 },
+            { value: 5 },
+            { value: 6 }
+        ],
+        xScaleColor: 'blue',
+        yAxisName: {
+            label: 'Energy Generated',
+            color: 'green'
+        },
         yScale: [
-            { value: 1000, color: 'blue' },
+            { value: 1000 },
             { value: 2000 },
             { value: 3000 },
             { value: 4000 },
@@ -30,8 +34,10 @@ const barChartData: BarChartData = {
             { value: 9000 },
             { value: 10000 }
         ],
+        yScaleColor: 'green',
         zAxisName: {
-            label: 'Country'
+            label: 'Country',
+            color: 'red'
         },
         zScale: [
             { label: 'India', value: 10 },
@@ -44,23 +50,10 @@ const barChartData: BarChartData = {
             { label: 'Burma', value: 80 },
             { label: 'Brazil', value: 90 },
             { label: 'Africa', value: 100 }
-        ]
+        ],
+        zScaleColor: 'red'
 
-    },
-    data: [
-        new BarBuilder().setX(0).setY(1).setZ(0).build(),
-        new BarBuilder().setX(1).setY(2).setZ(0).build(),
-        new BarBuilder().setX(2).setY(3).setZ(0).build(),
-        new BarBuilder().setX(3).setY(4).setZ(0).build(),
-        new BarBuilder().setX(4).setY(5).setZ(0).build(),
-        new BarBuilder().setX(5).setY(6).setZ(0).build(),
-        new BarBuilder().setX(6).setY(7).setZ(0).build(),
-        new BarBuilder().setX(7).setY(8).setZ(0).build(),
-        new BarBuilder().setX(8).setY(9).setZ(0).build(),
-        new BarBuilder().setX(9).setY(10).setZ(0).build(),
-        new BarBuilder().setX(10).setY(11).setZ(0).build(),
-        new BarBuilder().setX(11).setY(12).setZ(0).build()
-    ]
+    }
 };
 
 new BarChart('#frustum', barChartData);

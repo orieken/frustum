@@ -1,13 +1,13 @@
 import { Vector3, LineBasicMaterial, Geometry, Line, Group } from 'three';
 import { textRenderer } from '@frustum-dev/common';
-import { GRID_SIZE } from './bar-chart';
-import { BarChartMeta, AxisScale } from './data-model';
+import { GRID_SIZE } from './constants';
+import { BarChartMeta, AxisScale } from './bar-chart-model';
 
 const AXIS_NAME_MARGIN = 5;
 const AXIS_LABEL_MARGIN = 25;
 const AXIS_COLOR = 'black';
 
-export class BarChartAxis {
+export class DrawBarChartAxis {
     private group = new Group();
     private material = new LineBasicMaterial({ color: AXIS_COLOR });
     private chartMeta: BarChartMeta;
@@ -78,16 +78,15 @@ export class BarChartAxis {
             xRotation: rotation.x,
             yRotation: rotation.y,
             zRotation: rotation.z,
-            color: axisScale.color || color
+            color: color
         }));
     }
 
     private getLabel(scale: AxisScale): string {
         if (scale.label) {
             return scale.label;
-        } else {
-            return String(scale.value);
         }
+        return String(scale.value);
     }
 
     private drawLines(vertices: Vector3[][]) {
