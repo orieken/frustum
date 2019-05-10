@@ -1,11 +1,11 @@
 import { Vector3, LineBasicMaterial, Geometry, Line, Group } from 'three';
 import { textRenderer } from '@frustum-dev/common';
 import { GRID_SIZE } from './bar-chart';
-import { BarChartMeta } from './data-model';
+import { BarChartMeta, AxisScale } from './data-model';
 
 const AXIS_NAME_MARGIN = 5;
 const AXIS_LABEL_MARGIN = 25;
-const AXIS_COLOR = 0x888888;
+const AXIS_COLOR = 'black';
 
 export class BarChartAxis {
     private group = new Group();
@@ -41,30 +41,19 @@ export class BarChartAxis {
         const acc = GRID_SIZE / (this.chartMeta.xScale.length - 1);
         for (let i = 0; i < this.chartMeta.xScale.length; i++) {
             vertices.push([new Vector3(i * acc, 0, 0), new Vector3(i * acc, 0, -GRID_SIZE)]);
-            this.drawScale(String(this.chartMeta.xScale[i]), new Vector3(i * acc, 0, AXIS_NAME_MARGIN), new Vector3(-Math.PI / 2, 0, 0));
-            this.drawScale(String(this.chartMeta.xScale[i]), new Vector3(i * acc, 0, -GRID_SIZE - AXIS_NAME_MARGIN), new Vector3(-Math.PI / 2, 0, -Math.PI));
+            this.drawScale(this.chartMeta.xScale[i], new Vector3(i * acc, 0, AXIS_NAME_MARGIN), new Vector3(-Math.PI / 2, 0, 0), this.chartMeta.xScaleColor);
+            this.drawScale(this.chartMeta.xScale[i], new Vector3(i * acc, 0, -GRID_SIZE - AXIS_NAME_MARGIN), new Vector3(-Math.PI / 2, 0, -Math.PI), this.chartMeta.xScaleColor);
         }
         this.drawLines(vertices);
     }
 
     private drawYAxisAndScale() {
         this.drawLines([
-            [new Vector3(0, 0, 0), new Vector3(0, GRID_SIZE / 2, 0)],
-            [new Vector3(GRID_SIZE, 0, -GRID_SIZE), new Vector3(GRID_SIZE, GRID_SIZE / 2, -GRID_SIZE)]
+            [new Vector3(0, 0, -GRID_SIZE), new Vector3(0, GRID_SIZE / 2, -GRID_SIZE)]
         ]);
         const acc = (GRID_SIZE / (this.chartMeta.yScale.length - 1)) / 2;
         for (let i = 0; i < this.chartMeta.yScale.length; i++) {
-            this.drawScale(
-                String(this.chartMeta.yScale[i]),
-                new Vector3(-AXIS_NAME_MARGIN, i * acc, 0),
-                new Vector3(0, Math.PI, 0)
-            );
-
-            this.drawScale(
-                String(this.chartMeta.yScale[i]),
-                new Vector3(GRID_SIZE + AXIS_NAME_MARGIN, i * acc, -GRID_SIZE),
-                new Vector3(0, 0, 0)
-            );
+            this.drawScale(this.chartMeta.yScale[i], new Vector3(AXIS_NAME_MARGIN, i * acc, -GRID_SIZE), new Vector3(0, Math.PI / 4, 0), this.chartMeta.yScaleColor);
         }
     }
 
@@ -74,31 +63,31 @@ export class BarChartAxis {
         const acc = GRID_SIZE / (this.chartMeta.zScale.length - 1);
         for (let i = 0; i < this.chartMeta.zScale.length; i++) {
             vertices.push([new Vector3(0, 0, -i * acc), new Vector3(GRID_SIZE, 0, -i * acc)]);
-            this.drawScale(
-                String(this.chartMeta.zScale[i]),
-                new Vector3(-AXIS_NAME_MARGIN, 0, -i * acc),
-                new Vector3(-Math.PI / 2, 0, Math.PI)
-            );
-            this.drawScale(
-                String(this.chartMeta.zScale[i]),
-                new Vector3(GRID_SIZE + AXIS_NAME_MARGIN, 0, -i * acc),
-                new Vector3(-Math.PI / 2, 0, 0)
-            );
+            this.drawScale(this.chartMeta.zScale[i], new Vector3(-AXIS_NAME_MARGIN, 0, -i * acc), new Vector3(-Math.PI / 2, 0, Math.PI), this.chartMeta.zScaleColor);
+            this.drawScale(this.chartMeta.zScale[i], new Vector3(GRID_SIZE + AXIS_NAME_MARGIN, 0, -i * acc), new Vector3(-Math.PI / 2, 0, 0), this.chartMeta.zScaleColor);
         }
         this.drawLines(vertices);
     }
 
-    private drawScale(text: string, position: Vector3, rotation: Vector3, color?: string) {
+    private drawScale(axisScale: AxisScale, position: Vector3, rotation: Vector3, color?: number | string) {
         this.group.add(textRenderer.drawHelvetikerBoldFontText({
-            text: text,
+            text: this.getLabel(axisScale),
             x: position.x,
             y: position.y,
             z: position.z,
             xRotation: rotation.x,
             yRotation: rotation.y,
             zRotation: rotation.z,
-            color: color
+            color: axisScale.color || color
         }));
+    }
+
+    private getLabel(scale: AxisScale): string {
+        if (scale.label) {
+            return scale.label;
+        } else {
+            return String(scale.value);
+        }
     }
 
     private drawLines(vertices: Vector3[][]) {
@@ -111,9 +100,9 @@ export class BarChartAxis {
 
     private drawXAxisName() {
         const xAxisName = this.chartMeta.xAxisName;
-        if (xAxisName && xAxisName.label.length > 0) {
+        if (xAxisName) {
             this.group.add(textRenderer.drawHelvetikerBoldFontText({
-                text: xAxisName.label,
+                text: this.getLabel(xAxisName),
                 x: GRID_SIZE / 2,
                 z: AXIS_LABEL_MARGIN,
                 xRotation: - Math.PI / 2,
@@ -121,7 +110,7 @@ export class BarChartAxis {
             }));
 
             this.group.add(textRenderer.drawHelvetikerBoldFontText({
-                text: xAxisName.label,
+                text: this.getLabel(xAxisName),
                 x: GRID_SIZE / 2,
                 z: -GRID_SIZE - AXIS_LABEL_MARGIN,
                 yRotation: Math.PI,
@@ -133,21 +122,13 @@ export class BarChartAxis {
 
     private drawYAxisName() {
         const yAxisName = this.chartMeta.yAxisName;
-        if (yAxisName && yAxisName.label.length > 0) {
+        if (yAxisName) {
             this.group.add(textRenderer.drawHelvetikerBoldFontText({
-                text: yAxisName.label,
+                text: this.getLabel(yAxisName),
                 x: -AXIS_LABEL_MARGIN,
                 y: GRID_SIZE / 4,
-                z: 0,
-                yRotation: Math.PI,
-                color: yAxisName.color
-            }));
-
-            this.group.add(textRenderer.drawHelvetikerBoldFontText({
-                text: yAxisName.label,
-                x: GRID_SIZE + AXIS_LABEL_MARGIN,
-                y: GRID_SIZE / 4,
                 z: -GRID_SIZE,
+                yRotation: Math.PI / 4,
                 color: yAxisName.color
             }));
         }
@@ -155,9 +136,9 @@ export class BarChartAxis {
 
     private drawZAxisName() {
         const zAxisName = this.chartMeta.zAxisName;
-        if (zAxisName && zAxisName.label.length > 0) {
+        if (zAxisName) {
             this.group.add(textRenderer.drawHelvetikerBoldFontText({
-                text: zAxisName.label,
+                text: this.getLabel(zAxisName),
                 x: GRID_SIZE + AXIS_LABEL_MARGIN,
                 z: -GRID_SIZE / 2,
                 xRotation: -Math.PI / 2,
@@ -166,7 +147,7 @@ export class BarChartAxis {
             }));
 
             this.group.add(textRenderer.drawHelvetikerBoldFontText({
-                text: zAxisName.label,
+                text: this.getLabel(zAxisName),
                 x: -AXIS_LABEL_MARGIN,
                 z: -GRID_SIZE / 2,
                 xRotation: -Math.PI / 2,

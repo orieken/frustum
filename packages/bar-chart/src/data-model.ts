@@ -12,21 +12,20 @@ class BarChartData {
 }
 
 interface BarChartMeta extends ChartData {
-    xAxisName?: AxisName;
-    yAxisName?: AxisName;
-    zAxisName?: AxisName;
-    xScale: number[] | string[] | Scale[];
-    yScale: number[] | string[] | Scale[];
-    zScale: number[] | string[] | Scale[];
+    xAxisName?: AxisScale;
+    yAxisName?: AxisScale;
+    zAxisName?: AxisScale;
+    xScale: AxisScale[];
+    yScale: AxisScale[];
+    zScale: AxisScale[];
+    yScaleColor?: number | string;
+    xScaleColor?: number | string;
+    zScaleColor?: number | string;
 }
 
-interface Scale {
-    label: string;
-    value: number;
-}
-
-interface AxisName {
-    label: string;
+interface AxisScale {
+    label?: string;
+    value?: number;
     color?: number | string;
 }
 
@@ -103,4 +102,4 @@ class BarBuilder {
     }
 }
 
-export { BarBuilder, Bar, BarChartData, AxisName, BarChartMeta };
+export { BarBuilder, Bar, BarChartData, AxisScale, BarChartMeta };

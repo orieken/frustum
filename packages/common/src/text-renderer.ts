@@ -26,7 +26,7 @@ class TextRenderer {
             size: textSettings.size || 1.8,
             height: 0
         });
-        const material = new MeshBasicMaterial({ color: new Color(textSettings.color || 0x44aa88) });
+        const material = new MeshBasicMaterial({ color: new Color(textSettings.color || 'black') });
         const textMesh = new Mesh(geometry, material);
         textMesh.rotation.x = textSettings.xRotation || 0;
         textMesh.rotation.y = textSettings.yRotation || 0;
