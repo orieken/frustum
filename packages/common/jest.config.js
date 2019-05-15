@@ -1,5 +1,8 @@
 const common = require('../../jest.config');
 
 module.exports = {
-    ...common
+    ...common,
+    moduleNameMapper: {
+        'three': '<rootDir>/../__mocks__/three.ts'
+    }
 };
