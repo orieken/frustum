@@ -13,6 +13,7 @@
     "build": "npm-run-all clean && rollup -c",
     "dev": "rollup -c -w",
     "test": "jest",
+    "test:watch": "jest --watchAll",
     "pretest": "npm run build",
     "clean": "rimraf dist/**"
   },

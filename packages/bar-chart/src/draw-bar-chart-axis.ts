@@ -1,5 +1,5 @@
 import { Vector3, LineBasicMaterial, Geometry, Line, Group } from 'three';
-import { textRenderer } from '@frustum-dev/common';
+import { getHelvetikerRegularTextMesh } from '@frustum-dev/common';
 import { GRID_SIZE } from './constants';
 import { BarChartMeta, AxisScale } from './bar-chart-model';
 
@@ -36,7 +36,6 @@ export class DrawBarChartAxis {
     }
 
     private drawXAxisAndScale() {
-        this.drawLines([[new Vector3(0, 0, 0), new Vector3(GRID_SIZE, 0, 0)]]);
         let vertices: Vector3[][] = [];
         const acc = GRID_SIZE / (this.chartMeta.xScale.length - 1);
         for (let i = 0; i < this.chartMeta.xScale.length; i++) {
@@ -58,7 +57,6 @@ export class DrawBarChartAxis {
     }
 
     private drawZAxisAndScale() {
-        this.drawLines([[new Vector3(0, 0, 0), new Vector3(0, 0, -GRID_SIZE)]]);
         let vertices: Vector3[][] = [];
         const acc = GRID_SIZE / (this.chartMeta.zScale.length - 1);
         for (let i = 0; i < this.chartMeta.zScale.length; i++) {
@@ -70,7 +68,7 @@ export class DrawBarChartAxis {
     }
 
     private drawScale(axisScale: AxisScale, position: Vector3, rotation: Vector3, color?: number | string) {
-        this.group.add(textRenderer.drawHelvetikerBoldFontText({
+        this.group.add(getHelvetikerRegularTextMesh({
             text: this.getLabel(axisScale),
             x: position.x,
             y: position.y,
@@ -100,7 +98,7 @@ export class DrawBarChartAxis {
     private drawXAxisName() {
         const xAxisName = this.chartMeta.xAxisName;
         if (xAxisName) {
-            this.group.add(textRenderer.drawHelvetikerBoldFontText({
+            this.group.add(getHelvetikerRegularTextMesh({
                 text: this.getLabel(xAxisName),
                 x: GRID_SIZE / 2,
                 z: AXIS_LABEL_MARGIN,
@@ -108,7 +106,7 @@ export class DrawBarChartAxis {
                 color: xAxisName.color
             }));
 
-            this.group.add(textRenderer.drawHelvetikerBoldFontText({
+            this.group.add(getHelvetikerRegularTextMesh({
                 text: this.getLabel(xAxisName),
                 x: GRID_SIZE / 2,
                 z: -GRID_SIZE - AXIS_LABEL_MARGIN,
@@ -122,7 +120,7 @@ export class DrawBarChartAxis {
     private drawYAxisName() {
         const yAxisName = this.chartMeta.yAxisName;
         if (yAxisName) {
-            this.group.add(textRenderer.drawHelvetikerBoldFontText({
+            this.group.add(getHelvetikerRegularTextMesh({
                 text: this.getLabel(yAxisName),
                 x: -AXIS_LABEL_MARGIN,
                 y: GRID_SIZE / 4,
@@ -136,7 +134,7 @@ export class DrawBarChartAxis {
     private drawZAxisName() {
         const zAxisName = this.chartMeta.zAxisName;
         if (zAxisName) {
-            this.group.add(textRenderer.drawHelvetikerBoldFontText({
+            this.group.add(getHelvetikerRegularTextMesh({
                 text: this.getLabel(zAxisName),
                 x: GRID_SIZE + AXIS_LABEL_MARGIN,
                 z: -GRID_SIZE / 2,
@@ -145,7 +143,7 @@ export class DrawBarChartAxis {
                 color: zAxisName.color
             }));
 
-            this.group.add(textRenderer.drawHelvetikerBoldFontText({
+            this.group.add(getHelvetikerRegularTextMesh({
                 text: this.getLabel(zAxisName),
                 x: -AXIS_LABEL_MARGIN,
                 z: -GRID_SIZE / 2,

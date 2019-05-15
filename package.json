@@ -4,8 +4,11 @@
   "author": "sathya vikram chekuri <2120744+sathyavikram@users.noreply.github.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^24.0.11",
-    "jest": "^24.7.1",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0",
     "lerna": "^3.4.3",
     "live-server": "^1.2.1",
     "npm-run-all": "^4.1.5",
@@ -15,7 +18,6 @@
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^4.2.3",
     "rollup-plugin-typescript2": "^0.20.1",
-    "ts-jest": "^24.0.2",
     "typescript": "^3.4.4"
   },
   "dependencies": {
@@ -23,7 +25,8 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "test": "jest"
   },
   "private": true,
   "workspaces": [

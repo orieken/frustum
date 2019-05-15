@@ -1,4 +1,4 @@
-export interface ChartData {
-    name?: string;
-    description?: string;
-}
+// export interface ChartData {
+//     name?: string;
+//     description?: string;
+// }
